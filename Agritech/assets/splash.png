@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="2048" viewBox="0 0 2048 2048">
+  <rect width="2048" height="2048" fill="#4CAF50"/>
+  <text x="1024" y="1024" font-family="Arial" font-size="200" fill="white" text-anchor="middle" dominant-baseline="middle">AgriTech Assistant</text>
+  <path d="M824 624c100-100 300-100 400 0s100 300 0 400-300 100-400 0-100-300 0-400z" fill="none" stroke="white" stroke-width="40"/>
+  <path d="M924 724c50-50 150-50 200 0s50 150 0 200-150 50-200 0-50-150 0-200z" fill="white"/>
+</svg>
