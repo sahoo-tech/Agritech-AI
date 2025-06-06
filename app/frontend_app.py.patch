@@ -1,0 +1,41 @@
+try:
+        response = requests.get(f"{BASE_API_URL}/weather/current")
+        if response.status_code == 200:
+            return response.json()
+    except Exception as e:
+        st.error(f"Error fetching weather data: {e}")
+    return None
+
+def get_soil_health():
+    # Mock data or replace with actual API call
+    return {
+        "moisture": 45,  # percentage
+        "ph": 6.5,
+        "temperature": 22  # Celsius
+    }
+=======
+def get_location():
+    # For demo, use fixed coordinates; in real app, get from user input or geolocation
+    return {"latitude": 20.5937, "longitude": 78.9629}
+
+def get_weather(location):
+    try:
+        response = requests.post(f"{BASE_API_URL}/current", json=location)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            st.error(f"Weather API error: {response.status_code} {response.text}")
+    except Exception as e:
+        st.error(f"Error fetching weather data: {e}")
+    return None
+
+def get_soil_health(location):
+    try:
+        response = requests.post(f"{BASE_API_URL}/soil", json=location)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            st.error(f"Soil API error: {response.status_code} {response.text}")
+    except Exception as e:
+        st.error(f"Error fetching soil data: {e}")
+    return None
