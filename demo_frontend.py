@@ -42,19 +42,58 @@ def get_weather_data(latitude: float, longitude: float):
         return None
 
 def get_soil_data(latitude: float, longitude: float):
-    """Get soil data from public API"""
+    """Get soil data from public API with fallback"""
     try:
         data = {"latitude": latitude, "longitude": longitude}
-        response = requests.post(f"{WEATHER_API_URL}/public/soil", json=data)
+        response = requests.post(f"{WEATHER_API_URL}/public/soil", json=data, timeout=5)
         
         if response.status_code == 200:
             return response.json()
         else:
-            st.error(f"Soil API error: {response.status_code} - {response.text}")
-            return None
+            st.warning("🔄 API unavailable, using simulated soil data")
+            return generate_demo_soil_data(latitude, longitude)
+    except requests.exceptions.ConnectionError:
+        st.warning("🔄 API server not running, using simulated soil data")
+        return generate_demo_soil_data(latitude, longitude)
     except Exception as e:
-        st.error(f"Error fetching soil data: {str(e)}")
-        return None
+        st.warning(f"🔄 Using simulated soil data")
+        return generate_demo_soil_data(latitude, longitude)
+
+
+def generate_demo_soil_data(latitude: float, longitude: float):
+    """Generate demo soil data for demonstration"""
+    import random
+    from datetime import datetime
+    
+    soil_types = ["loam", "clay", "sandy"]
+    soil_type = random.choice(soil_types)
+    
+    return {
+        "soil_type": soil_type,
+        "ph_level": round(random.uniform(6.0, 7.5), 1),
+        "moisture_content": round(random.uniform(30, 60), 1),
+        "temperature": round(20 + random.uniform(-5, 10), 1),
+        "nutrients": {
+            "nitrogen": random.choice(["low", "medium", "high"]),
+            "phosphorus": random.choice(["low", "medium", "high"]),
+            "potassium": random.choice(["low", "medium", "high"])
+        },
+        "characteristics": {
+            "drainage": "good",
+            "water_retention": "moderate",
+            "workability": "easy",
+            "fertility": "good"
+        },
+        "recommendations": [
+            "Regular watering recommended",
+            "Add organic compost monthly",
+            "Monitor pH levels",
+            "Good for most vegetables"
+        ],
+        "data_source": "🔄 Demo Data (Start API server for real data)",
+        "fallback_data": True,
+        "last_updated": datetime.now().isoformat()
+    }
 
 def animated_seed_planting():
     """Show animated seed planting"""

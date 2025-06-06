@@ -26,6 +26,27 @@ AUTH_API_URL = f"{BASE_API_URL}/auth"
 DISEASE_API_URL = f"{BASE_API_URL}/disease"
 CHAT_API_URL = f"{BASE_API_URL}/chat"
 
+def check_api_connection() -> bool:
+    """Check if API server is running"""
+    try:
+        response = requests.get("http://localhost:8000/docs", timeout=2)
+        return response.status_code == 200
+    except:
+        return False
+
+def show_api_status():
+    """Show API connection status in sidebar"""
+    with st.sidebar:
+        if check_api_connection():
+            st.success("🟢 API Server: Connected")
+            st.caption("Real-time data available")
+        else:
+            st.error("🔴 API Server: Disconnected")
+            st.caption("Using simulated data")
+            with st.expander("🔧 How to start API server"):
+                st.code("python run.py", language="bash")
+                st.caption("Then refresh this page")
+
 # Page configuration
 st.set_page_config(
     page_title="🌱 AgriTech Assistant",
@@ -60,7 +81,8 @@ def login_user(username: str, password: str) -> bool:
         response = requests.post(
             f"{AUTH_API_URL}/login",
             data=data,
-            headers={"Content-Type": "application/x-www-form-urlencoded"}
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+            timeout=5
         )
         
         if response.status_code == 200:
@@ -71,17 +93,29 @@ def login_user(username: str, password: str) -> bool:
             # Get user info
             user_response = requests.get(
                 f"{AUTH_API_URL}/me",
-                headers=get_auth_headers()
+                headers=get_auth_headers(),
+                timeout=5
             )
             if user_response.status_code == 200:
                 st.session_state.user_info = user_response.json()
             
+            st.success("✅ Login successful!")
             return True
         else:
-            st.error(f"Login failed: {response.text}")
+            st.error(f"❌ Login failed: Invalid credentials")
             return False
+    except requests.exceptions.ConnectionError:
+        st.error("🔌 **API Server Not Running**")
+        st.info("💡 **Solution:** Start the API server first with `python run.py`, then refresh this page")
+        st.info("🔄 **Alternative:** Use demo mode with `streamlit run demo_frontend.py`")
+        return False
+    except requests.exceptions.Timeout:
+        st.error("⏱️ **Connection Timeout**")
+        st.info("💡 Please check if the API server is running and try again")
+        return False
     except Exception as e:
-        st.error(f"Login error: {str(e)}")
+        st.error(f"❌ **Connection Error:** {str(e)}")
+        st.info("💡 **Solution:** Make sure the API server is running with `python run.py`")
         return False
 
 def register_user(username: str, email: str, password: str, full_name: str, location: str) -> bool:
@@ -96,17 +130,31 @@ def register_user(username: str, email: str, password: str, full_name: str, loca
         }
         response = requests.post(
             f"{AUTH_API_URL}/register",
-            json=data
+            json=data,
+            timeout=5
         )
         
         if response.status_code == 200:
-            st.success("Registration successful! Please login.")
+            st.success("✅ Registration successful! Please login.")
             return True
-        else:
-            st.error(f"Registration failed: {response.text}")
+        elif response.status_code == 400:
+            st.error("❌ Registration failed: Username or email already exists")
             return False
+        else:
+            st.error(f"❌ Registration failed: Server error")
+            return False
+    except requests.exceptions.ConnectionError:
+        st.error("🔌 **API Server Not Running**")
+        st.info("💡 **Solution:** Start the API server first with `python run.py`, then refresh this page")
+        st.info("🔄 **Alternative:** Use demo mode with `streamlit run demo_frontend.py`")
+        return False
+    except requests.exceptions.Timeout:
+        st.error("⏱️ **Connection Timeout**")
+        st.info("💡 Please check if the API server is running and try again")
+        return False
     except Exception as e:
-        st.error(f"Registration error: {str(e)}")
+        st.error(f"❌ **Connection Error:** {str(e)}")
+        st.info("💡 **Solution:** Make sure the API server is running with `python run.py`")
         return False
 
 def logout_user():
@@ -194,7 +242,7 @@ def get_fallback_weather_data(latitude: float, longitude: float) -> Dict:
     }
 
 def get_soil_data(latitude: float, longitude: float) -> Optional[Dict]:
-    """Get soil data from API"""
+    """Get soil data from API with fallback to local generation"""
     try:
         data = {"latitude": latitude, "longitude": longitude}
         
@@ -202,21 +250,166 @@ def get_soil_data(latitude: float, longitude: float) -> Optional[Dict]:
         headers = get_auth_headers()
         endpoint = f"{WEATHER_API_URL}/soil" if headers else f"{WEATHER_API_URL}/public/soil"
         
-        response = requests.post(endpoint, json=data, headers=headers)
+        response = requests.post(endpoint, json=data, headers=headers, timeout=5)
         
         if response.status_code == 200:
             return response.json()
         elif response.status_code == 401 and headers:
             # Try public endpoint if authentication fails
-            response = requests.post(f"{WEATHER_API_URL}/public/soil", json=data)
+            response = requests.post(f"{WEATHER_API_URL}/public/soil", json=data, timeout=5)
             if response.status_code == 200:
                 return response.json()
         
-        st.error(f"Soil API error: {response.status_code}")
-        return None
+        # If API fails, generate fallback data
+        st.warning("🔄 API unavailable, using simulated soil data")
+        return generate_fallback_soil_data(latitude, longitude)
+        
+    except requests.exceptions.ConnectionError:
+        st.warning("🔄 API server not running, using simulated soil data")
+        return generate_fallback_soil_data(latitude, longitude)
+    except requests.exceptions.Timeout:
+        st.warning("🔄 API timeout, using simulated soil data")
+        return generate_fallback_soil_data(latitude, longitude)
     except Exception as e:
-        st.error(f"Error fetching soil data: {str(e)}")
-        return None
+        st.warning(f"🔄 Error connecting to API: {str(e)}, using simulated soil data")
+        return generate_fallback_soil_data(latitude, longitude)
+
+
+def generate_fallback_soil_data(latitude: float, longitude: float) -> Dict:
+    """Generate realistic soil data based on location"""
+    import random
+    from datetime import datetime
+    
+    # Determine soil type based on latitude (climate zones)
+    if abs(latitude) < 23.5:  # Tropical
+        soil_types = ["clay", "sandy", "loam"]
+        weights = [0.4, 0.4, 0.2]
+    elif abs(latitude) < 40:  # Temperate
+        soil_types = ["loam", "clay", "silt"]
+        weights = [0.5, 0.3, 0.2]
+    else:  # Cold regions
+        soil_types = ["peat", "silt", "clay"]
+        weights = [0.4, 0.3, 0.3]
+    
+    soil_type = random.choices(soil_types, weights=weights)[0]
+    
+    # pH varies by soil type and climate
+    ph_ranges = {
+        "clay": (6.0, 7.5),
+        "sandy": (5.5, 6.5), 
+        "loam": (6.0, 7.0),
+        "silt": (6.5, 7.5),
+        "peat": (4.5, 6.0)
+    }
+    
+    ph_level = round(random.uniform(*ph_ranges[soil_type]), 1)
+    
+    # Moisture content varies by soil type and season
+    moisture_ranges = {
+        "clay": (40, 70),
+        "sandy": (15, 35),
+        "loam": (30, 50), 
+        "silt": (35, 60),
+        "peat": (60, 85)
+    }
+    
+    moisture_content = round(random.uniform(*moisture_ranges[soil_type]), 1)
+    
+    # Temperature based on latitude (simplified)
+    base_temp = 25 - abs(latitude) * 0.6
+    soil_temp = round(base_temp + random.uniform(-3, 3), 1)
+    
+    # Nutrients based on soil type
+    nutrient_levels = {
+        "clay": {"nitrogen": "high", "phosphorus": "medium", "potassium": "high"},
+        "sandy": {"nitrogen": "low", "phosphorus": "low", "potassium": "medium"},
+        "loam": {"nitrogen": "high", "phosphorus": "high", "potassium": "high"},
+        "silt": {"nitrogen": "medium", "phosphorus": "high", "potassium": "medium"},
+        "peat": {"nitrogen": "very_high", "phosphorus": "low", "potassium": "low"}
+    }
+    
+    characteristics = {
+        "clay": {
+            "drainage": "poor",
+            "water_retention": "excellent", 
+            "workability": "difficult",
+            "fertility": "high"
+        },
+        "sandy": {
+            "drainage": "excellent",
+            "water_retention": "poor",
+            "workability": "easy", 
+            "fertility": "low"
+        },
+        "loam": {
+            "drainage": "good",
+            "water_retention": "good",
+            "workability": "easy",
+            "fertility": "excellent"
+        },
+        "silt": {
+            "drainage": "moderate",
+            "water_retention": "good", 
+            "workability": "moderate",
+            "fertility": "good"
+        },
+        "peat": {
+            "drainage": "poor",
+            "water_retention": "excellent",
+            "workability": "difficult",
+            "fertility": "very_high"
+        }
+    }
+    
+    recommendations = {
+        "clay": [
+            "Add organic matter to improve drainage",
+            "Avoid working when wet to prevent compaction",
+            "Consider raised beds for better drainage",
+            "Plant cover crops to improve structure"
+        ],
+        "sandy": [
+            "Add compost to improve water retention",
+            "Use mulch to reduce water evaporation", 
+            "Apply fertilizer more frequently",
+            "Plant drought-tolerant crops"
+        ],
+        "loam": [
+            "Maintain organic matter with compost",
+            "Practice crop rotation",
+            "Minimal tillage to preserve structure",
+            "Ideal for most crops"
+        ],
+        "silt": [
+            "Improve drainage with organic matter",
+            "Avoid compaction when wet",
+            "Add coarse organic matter",
+            "Good for vegetables and grains"
+        ],
+        "peat": [
+            "Monitor pH levels regularly",
+            "Add lime if too acidic",
+            "Excellent for acid-loving plants",
+            "Ensure adequate drainage"
+        ]
+    }
+    
+    return {
+        "soil_type": soil_type,
+        "ph_level": ph_level,
+        "moisture_content": moisture_content,
+        "temperature": soil_temp,
+        "nutrients": nutrient_levels[soil_type],
+        "characteristics": characteristics[soil_type],
+        "recommendations": recommendations[soil_type],
+        "data_source": "🔄 Simulated Data (Start API server for real-time data)",
+        "fallback_data": True,
+        "last_updated": datetime.now().isoformat(),
+        "location": {
+            "latitude": latitude,
+            "longitude": longitude
+        }
+    }
 
 def get_comprehensive_data(latitude: float, longitude: float) -> Optional[Dict]:
     """Get comprehensive agricultural data"""
@@ -1591,6 +1784,9 @@ def show_community_tab():
 
 def main():
     """Main application function"""
+    # Show API status in sidebar
+    show_api_status()
+    
     # Custom CSS
     st.markdown("""
     <style>
