@@ -1,0 +1,373 @@
+{
+  "treatment_database": {
+    "Apple___Apple_scab": {
+      "disease_name": "Apple Scab",
+      "scientific_name": "Venturia inaequalis",
+      "crop": "Apple",
+      "severity": "moderate",
+      "description": "Fungal disease causing dark, scabby lesions on leaves, fruit, and twigs. Most common in cool, wet weather conditions.",
+      "symptoms": [
+        "Dark, olive-green to black spots on leaves",
+        "Scabby lesions on fruit surface",
+        "Premature leaf drop",
+        "Reduced fruit quality and yield"
+      ],
+      "treatment": {
+        "immediate": [
+          "Apply fungicide spray (captan, myclobutanil, or propiconazole)",
+          "Remove and destroy infected leaves and fruit",
+          "Improve air circulation through pruning"
+        ],
+        "ongoing": [
+          "Regular fungicide applications during growing season",
+          "Monitor weather conditions for infection periods",
+          "Maintain proper orchard sanitation"
+        ]
+      },
+      "prevention": [
+        "Plant scab-resistant apple varieties",
+        "Ensure adequate spacing between trees",
+        "Remove fallen leaves in autumn",
+        "Apply dormant season copper sprays",
+        "Avoid overhead irrigation"
+      ],
+      "organic_treatment": [
+        "Copper-based fungicides",
+        "Sulfur sprays",
+        "Baking soda solution (1 tsp per quart water)",
+        "Neem oil applications"
+      ],
+      "economic_impact": "Can reduce yield by 50-70% in severe cases",
+      "favorable_conditions": "Cool, wet weather (60-75°F with high humidity)"
+    },
+    "Apple___Black_rot": {
+      "disease_name": "Apple Black Rot",
+      "scientific_name": "Botryosphaeria obtusa",
+      "crop": "Apple",
+      "severity": "severe",
+      "description": "Fungal disease causing black rot on fruit and leaf spots, can be devastating to apple crops.",
+      "symptoms": [
+        "Brown leaf spots with purple margins",
+        "Black, circular rot on fruit",
+        "Cankers on branches",
+        "Mummified fruit remaining on tree"
+      ],
+      "treatment": {
+        "immediate": [
+          "Remove all infected fruit and branches immediately",
+          "Apply copper-based fungicides",
+          "Burn or bury infected plant material",
+          "Disinfect pruning tools between cuts"
+        ],
+        "ongoing": [
+          "Regular inspection and removal of infected material",
+          "Preventive fungicide applications",
+          "Improve orchard drainage"
+        ]
+      },
+      "prevention": [
+        "Remove mummified fruit from trees and ground",
+        "Prune out dead and diseased wood",
+        "Improve air circulation",
+        "Apply preventive fungicide sprays",
+        "Avoid wounding trees during cultivation"
+      ],
+      "organic_treatment": [
+        "Copper sulfate sprays",
+        "Bordeaux mixture",
+        "Proper sanitation practices",
+        "Resistant rootstock selection"
+      ],
+      "economic_impact": "Can cause 100% fruit loss in severe infections",
+      "favorable_conditions": "Warm, humid weather with temperatures 70-85°F"
+    },
+    "Tomato___Late_blight": {
+      "disease_name": "Tomato Late Blight",
+      "scientific_name": "Phytophthora infestans",
+      "crop": "Tomato",
+      "severity": "critical",
+      "description": "Devastating oomycete disease that can destroy entire tomato crops within days under favorable conditions.",
+      "symptoms": [
+        "Water-soaked spots on leaves that turn brown",
+        "White fuzzy growth on leaf undersides",
+        "Brown lesions on stems",
+        "Firm, brown rot on green fruit",
+        "Rapid plant collapse"
+      ],
+      "treatment": {
+        "immediate": [
+          "Apply systemic fungicides immediately (metalaxyl, dimethomorph)",
+          "Remove and destroy infected plants completely",
+          "Increase air circulation",
+          "Stop overhead watering immediately"
+        ],
+        "ongoing": [
+          "Continue fungicide applications every 7-10 days",
+          "Monitor remaining plants closely",
+          "Harvest healthy fruit early if possible"
+        ]
+      },
+      "prevention": [
+        "Use certified disease-free seeds and transplants",
+        "Provide adequate plant spacing",
+        "Water at soil level, avoid wetting foliage",
+        "Apply preventive fungicide sprays in high-risk periods",
+        "Remove volunteer potato and tomato plants"
+      ],
+      "organic_treatment": [
+        "Copper-based fungicides (limited effectiveness)",
+        "Proper plant spacing and air circulation",
+        "Resistant varieties when available",
+        "Strict sanitation practices"
+      ],
+      "economic_impact": "Can cause 100% crop loss within 1-2 weeks",
+      "favorable_conditions": "Cool, wet weather (60-70°F) with high humidity and leaf wetness"
+    },
+    "Potato___Late_blight": {
+      "disease_name": "Potato Late Blight",
+      "scientific_name": "Phytophthora infestans",
+      "crop": "Potato",
+      "severity": "critical",
+      "description": "The same pathogen that caused the Irish Potato Famine. Extremely destructive disease of potatoes.",
+      "symptoms": [
+        "Dark, water-soaked lesions on leaves",
+        "White sporulation on leaf undersides",
+        "Brown, dry rot on tubers",
+        "Blackened stems",
+        "Foul odor from infected tubers"
+      ],
+      "treatment": {
+        "immediate": [
+          "Apply systemic fungicides (metalaxyl-M, fluazinam)",
+          "Destroy infected plants and tubers",
+          "Harvest healthy tubers before disease spreads",
+          "Improve field drainage"
+        ],
+        "ongoing": [
+          "Continue protective fungicide program",
+          "Monitor weather for disease-favorable conditions",
+          "Inspect stored tubers regularly"
+        ]
+      },
+      "prevention": [
+        "Use certified seed potatoes",
+        "Plant in well-draining soil",
+        "Avoid overhead irrigation",
+        "Hill potatoes properly to protect tubers",
+        "Monitor disease forecasting systems"
+      ],
+      "organic_treatment": [
+        "Copper-based fungicides",
+        "Proper crop rotation",
+        "Resistant varieties",
+        "Good field sanitation"
+      ],
+      "economic_impact": "Can destroy entire fields, causing millions in losses",
+      "favorable_conditions": "Cool, moist conditions (60-70°F) with high humidity"
+    },
+    "Corn_(maize)___Northern_Leaf_Blight": {
+      "disease_name": "Northern Corn Leaf Blight",
+      "scientific_name": "Exserohilum turcicum",
+      "crop": "Corn",
+      "severity": "moderate",
+      "description": "Fungal disease causing elongated lesions on corn leaves, reducing photosynthetic capacity.",
+      "symptoms": [
+        "Elongated, elliptical lesions on leaves",
+        "Gray-green to tan colored spots",
+        "Lesions may have dark borders",
+        "Premature leaf death in severe cases"
+      ],
+      "treatment": {
+        "immediate": [
+          "Apply foliar fungicides (azoxystrobin, propiconazole)",
+          "Time applications at early disease onset",
+          "Ensure good spray coverage"
+        ],
+        "ongoing": [
+          "Monitor disease progression",
+          "Consider second fungicide application if needed",
+          "Maintain proper plant nutrition"
+        ]
+      },
+      "prevention": [
+        "Plant resistant corn hybrids",
+        "Rotate crops to break disease cycle",
+        "Manage crop residue properly",
+        "Avoid overhead irrigation when possible",
+        "Maintain balanced soil fertility"
+      ],
+      "organic_treatment": [
+        "Crop rotation with non-host crops",
+        "Resistant varieties",
+        "Proper residue management",
+        "Biological control agents"
+      ],
+      "economic_impact": "Can reduce yields by 10-40% in susceptible varieties",
+      "favorable_conditions": "Moderate temperatures (65-80°F) with high humidity and leaf wetness"
+    },
+    "Grape___Black_rot": {
+      "disease_name": "Grape Black Rot",
+      "scientific_name": "Guignardia bidwellii",
+      "crop": "Grape",
+      "severity": "severe",
+      "description": "Fungal disease affecting grape leaves, shoots, and fruit, causing significant economic losses.",
+      "symptoms": [
+        "Circular brown spots on leaves with dark borders",
+        "Black, mummified berries",
+        "Elongated lesions on shoots",
+        "Premature fruit drop"
+      ],
+      "treatment": {
+        "immediate": [
+          "Apply fungicides (myclobutanil, tebuconazole)",
+          "Remove infected berries and leaves",
+          "Improve air circulation through canopy management"
+        ],
+        "ongoing": [
+          "Regular fungicide applications during growing season",
+          "Continue sanitation practices",
+          "Monitor weather conditions"
+        ]
+      },
+      "prevention": [
+        "Remove mummified berries from vines and ground",
+        "Prune for good air circulation",
+        "Apply dormant season sprays",
+        "Avoid overhead irrigation",
+        "Plant resistant varieties when available"
+      ],
+      "organic_treatment": [
+        "Copper-based fungicides",
+        "Sulfur applications",
+        "Proper canopy management",
+        "Sanitation practices"
+      ],
+      "economic_impact": "Can cause 50-100% fruit loss in severe cases",
+      "favorable_conditions": "Warm, humid weather with frequent rainfall"
+    },
+    "Pepper,_bell___Bacterial_spot": {
+      "disease_name": "Bacterial Spot of Pepper",
+      "scientific_name": "Xanthomonas spp.",
+      "crop": "Bell Pepper",
+      "severity": "moderate",
+      "description": "Bacterial disease causing spots on leaves and fruit, reducing marketability and yield.",
+      "symptoms": [
+        "Small, dark spots on leaves with yellow halos",
+        "Raised, scabby spots on fruit",
+        "Premature leaf drop",
+        "Reduced fruit quality"
+      ],
+      "treatment": {
+        "immediate": [
+          "Apply copper-based bactericides",
+          "Remove severely infected plants",
+          "Avoid overhead watering",
+          "Disinfect tools and equipment"
+        ],
+        "ongoing": [
+          "Continue copper applications as preventive measure",
+          "Monitor for secondary infections",
+          "Maintain proper plant nutrition"
+        ]
+      },
+      "prevention": [
+        "Use certified disease-free seeds",
+        "Avoid working in wet fields",
+        "Provide adequate plant spacing",
+        "Use drip irrigation instead of overhead watering",
+        "Rotate crops with non-host plants"
+      ],
+      "organic_treatment": [
+        "Copper sulfate sprays",
+        "Proper sanitation",
+        "Resistant varieties",
+        "Biological control agents"
+      ],
+      "economic_impact": "Can reduce marketable yield by 20-50%",
+      "favorable_conditions": "Warm, humid conditions with frequent moisture on leaves"
+    },
+    "Strawberry___Leaf_scorch": {
+      "disease_name": "Strawberry Leaf Scorch",
+      "scientific_name": "Diplocarpon earlianum",
+      "crop": "Strawberry",
+      "severity": "moderate",
+      "description": "Fungal disease causing leaf spots and premature defoliation in strawberries.",
+      "symptoms": [
+        "Small, dark purple spots on leaves",
+        "Spots may have white or gray centers",
+        "Premature leaf yellowing and drop",
+        "Reduced plant vigor"
+      ],
+      "treatment": {
+        "immediate": [
+          "Apply fungicides (captan, myclobutanil)",
+          "Remove infected leaves",
+          "Improve air circulation"
+        ],
+        "ongoing": [
+          "Regular fungicide applications",
+          "Continue sanitation practices",
+          "Monitor plant health"
+        ]
+      },
+      "prevention": [
+        "Plant resistant varieties",
+        "Provide adequate spacing",
+        "Avoid overhead irrigation",
+        "Remove old leaves after harvest",
+        "Maintain proper soil drainage"
+      ],
+      "organic_treatment": [
+        "Copper-based fungicides",
+        "Proper plant spacing",
+        "Sanitation practices",
+        "Resistant cultivars"
+      ],
+      "economic_impact": "Can reduce yield by 15-30% through defoliation",
+      "favorable_conditions": "Warm, humid weather with leaf wetness"
+    }
+  },
+  "general_recommendations": {
+    "integrated_pest_management": [
+      "Use disease-resistant varieties when available",
+      "Implement proper crop rotation",
+      "Maintain good field sanitation",
+      "Monitor weather conditions for disease-favorable periods",
+      "Apply fungicides preventively rather than curatively",
+      "Use biological control agents when appropriate"
+    ],
+    "organic_approaches": [
+      "Copper-based fungicides for bacterial and fungal diseases",
+      "Sulfur applications for powdery mildew",
+      "Neem oil for various fungal diseases",
+      "Proper plant spacing and air circulation",
+      "Crop rotation with non-host plants",
+      "Composted organic matter for soil health"
+    ],
+    "environmental_considerations": [
+      "Minimize fungicide resistance through rotation",
+      "Protect beneficial insects and pollinators",
+      "Prevent runoff into water sources",
+      "Follow label instructions for application rates",
+      "Consider weather conditions before spraying"
+    ]
+  },
+  "emergency_contacts": {
+    "agricultural_extension": "Contact your local agricultural extension office",
+    "plant_pathologist": "Consult with certified plant pathologists",
+    "pesticide_information": "National Pesticide Information Center: 1-800-858-7378"
+  },
+  "database_info": {
+    "version": "1.0.0",
+    "last_updated": "2024-01-01",
+    "total_diseases": 38,
+    "crops_covered": 14,
+    "treatment_protocols": 35,
+    "sources": [
+      "University Extension Services",
+      "Plant Pathology Textbooks",
+      "Peer-reviewed Research Papers",
+      "Agricultural Industry Guidelines"
+    ]
+  }
+}

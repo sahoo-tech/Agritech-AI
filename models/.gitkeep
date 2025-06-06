@@ -1,2 +1,10 @@
-# This file ensures the models directory is tracked by git
-# ML model files will be stored here
+# Models Directory
+# This directory contains the machine learning models for plant disease detection
+# 
+# Files included:
+# - plant_disease_model.py: Main disease detection model implementation
+# - model_config.json: Model configuration and metadata
+# - treatment_database.json: Comprehensive treatment recommendations
+# - README.md: Documentation for the disease detection system
+#
+# Note: Model weight files (.pth) should be downloaded separately due to size constraints

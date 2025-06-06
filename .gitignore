@@ -72,11 +72,19 @@ Thumbs.db
 
 # Application specific
 uploads/
-models/
 logs/
 *.db
 *.sqlite
 *.sqlite3
+
+# Model weights (large files) - but allow model code and configs
+models/*.pth
+models/*.pt
+models/*.h5
+models/*.pkl
+models/*.joblib
+models/weights/
+models/checkpoints/
 
 # Temporary files
 *.tmp
@@ -92,18 +100,12 @@ logs/
 agritech.db
 *.db-journal
 
-# ML Models (large files)
-*.pt
-*.pth
-*.h5
-*.pkl
-*.joblib
-
 # Data files
 data/
 datasets/
 *.csv
-*.json
+# Allow model config JSON files
+!models/*.json
 *.xml
 
 # Documentation builds
